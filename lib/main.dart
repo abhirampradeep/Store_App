@@ -40,8 +40,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     
     return MaterialApp(
-       debugShowCheckedModeBanner: false,
       title: "Store App",
+      debugShowCheckedModeBanner: true,
       home: Homepage(),
     );
   }

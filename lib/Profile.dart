@@ -1,24 +1,30 @@
 // ignore_for_file: unnecessary_const, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:store_app_waya/ComputerScience.dart';
 
-
-
-
 class Profile extends StatefulWidget {
-  const Profile({ Key? key }) : super(key: key);
+  const Profile({Key? key}) : super(key: key);
 
   @override
   _ProfileState createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
+  String barcode = 'Unknown';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+        appBar: AppBar(
           title: const Text('Dashboard'),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.abc_rounded),
+              onPressed: () {},
+            )
+          ],
         ),
         backgroundColor: Colors.blue[400],
         body: GridView.count(
@@ -43,7 +49,8 @@ class _ProfileState extends State<Profile> {
                             onPressed: () {
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
-                                      builder: (context) => const ComputerScience()));
+                                      builder: (context) =>
+                                          const ComputerScience()));
                             },
                             icon: const Icon(
                               Icons.computer_rounded,
@@ -70,8 +77,8 @@ class _ProfileState extends State<Profile> {
                     ],
                   )),
               onTap: () {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const ComputerScience()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const ComputerScience()));
               },
             ),
             InkWell(
@@ -88,7 +95,8 @@ class _ProfileState extends State<Profile> {
                             onPressed: () {
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
-                                      builder: (context) => const ComputerScience()));
+                                      builder: (context) =>
+                                          const ComputerScience()));
                             },
                             icon: const Icon(
                               Icons.add_rounded,
@@ -115,8 +123,8 @@ class _ProfileState extends State<Profile> {
                     ],
                   )),
               onTap: () {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const ComputerScience()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const ComputerScience()));
               },
             ),
             InkWell(
@@ -133,7 +141,8 @@ class _ProfileState extends State<Profile> {
                             onPressed: () {
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
-                                      builder: (context) => const ComputerScience()));
+                                      builder: (context) =>
+                                          const ComputerScience()));
                             },
                             icon: const Icon(
                               Icons.build_rounded,
@@ -160,8 +169,8 @@ class _ProfileState extends State<Profile> {
                     ],
                   )),
               onTap: () {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const ComputerScience()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const ComputerScience()));
               },
             ),
             InkWell(
@@ -178,7 +187,8 @@ class _ProfileState extends State<Profile> {
                             onPressed: () {
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
-                                      builder: (context) => const ComputerScience()));
+                                      builder: (context) =>
+                                          const ComputerScience()));
                             },
                             icon: const Icon(
                               Icons.settings,
@@ -205,21 +215,36 @@ class _ProfileState extends State<Profile> {
                     ],
                   )),
               onTap: () {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const ComputerScience()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const ComputerScience()));
               },
             ),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            
-            setState(() {});
-          },
-          backgroundColor: Colors.pink[300],
-          child: const Icon(Icons.add),
-        )
-      
-    );
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: FloatingActionButton.extended(
+            onPressed: scanBarcode,
+            backgroundColor: Colors.pink[300],
+            label: const Text("Scan"),
+            icon: const Icon(Icons.qr_code_rounded)));
+  }
+
+  Future<void> scanBarcode() async {
+    try{
+    final barcode = await FlutterBarcodeScanner.scanBarcode(
+        "#ff6666", "Cancel", true, ScanMode.BARCODE);
+
+        if(!mounted) return;
+
+        setState(() {
+                  this.barcode = barcode;
+
+        });
+
+    } on PlatformException{
+    
+    barcode ='failed to get platform version';
+    }
+    
   }
 }
