@@ -1,9 +1,9 @@
-// ignore_for_file: unnecessary_const, avoid_unnecessary_containers
+// ignore_for_file: unnecessary_const, avoid_unnecessary_containers, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:store_app_waya/ComputerScience.dart';
+import 'package:store_app_waya/Department.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -18,16 +18,18 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Dashboard'),
+          backgroundColor:Color(0xFF478DE0),
+          // title: const Text('Dashboard'),
           actions: [
             IconButton(
-              icon: Icon(Icons.abc_rounded),
+              icon: Icon(Icons.logout
+              ),
               onPressed: () {},
             )
           ],
         ),
-        backgroundColor: Colors.blue[400],
         body: GridView.count(
+          
           primary: false,
           padding:
               const EdgeInsets.only(top: 80, left: 20, right: 20, bottom: 10),
@@ -50,7 +52,7 @@ class _ProfileState extends State<Profile> {
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const ComputerScience()));
+                                          const Department()));
                             },
                             icon: const Icon(
                               Icons.computer_rounded,
@@ -67,7 +69,7 @@ class _ProfileState extends State<Profile> {
                         child: const Align(
                           alignment: Alignment.center,
                           child: Text(
-                            "Computer Science Department",
+                            "Computer Science ",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.bold),
@@ -78,7 +80,7 @@ class _ProfileState extends State<Profile> {
                   )),
               onTap: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const ComputerScience()));
+                    builder: (context) => const Department()));
               },
             ),
             InkWell(
@@ -96,7 +98,7 @@ class _ProfileState extends State<Profile> {
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const ComputerScience()));
+                                          const Department()));
                             },
                             icon: const Icon(
                               Icons.add_rounded,
@@ -113,7 +115,7 @@ class _ProfileState extends State<Profile> {
                         child: const Align(
                           alignment: Alignment.center,
                           child: const Text(
-                            "Electonics Department",
+                            "Electonics ",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.bold),
@@ -124,7 +126,7 @@ class _ProfileState extends State<Profile> {
                   )),
               onTap: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const ComputerScience()));
+                    builder: (context) => const Department()));
               },
             ),
             InkWell(
@@ -142,7 +144,7 @@ class _ProfileState extends State<Profile> {
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const ComputerScience()));
+                                          const Department()));
                             },
                             icon: const Icon(
                               Icons.build_rounded,
@@ -159,7 +161,7 @@ class _ProfileState extends State<Profile> {
                         child: const Align(
                           alignment: Alignment.center,
                           child: Text(
-                            "Mechanical Department",
+                            "Mechanical ",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.bold),
@@ -170,7 +172,7 @@ class _ProfileState extends State<Profile> {
                   )),
               onTap: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const ComputerScience()));
+                    builder: (context) => const Department()));
               },
             ),
             InkWell(
@@ -188,7 +190,7 @@ class _ProfileState extends State<Profile> {
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const ComputerScience()));
+                                          const Department()));
                             },
                             icon: const Icon(
                               Icons.settings,
@@ -205,7 +207,7 @@ class _ProfileState extends State<Profile> {
                         child: const Align(
                           alignment: Alignment.center,
                           child: Text(
-                            "Electrical Department ",
+                            "Electrical  ",
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.bold),
@@ -216,7 +218,7 @@ class _ProfileState extends State<Profile> {
                   )),
               onTap: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const ComputerScience()));
+                    builder: (context) => const Department()));
               },
             ),
           ],
@@ -230,21 +232,17 @@ class _ProfileState extends State<Profile> {
   }
 
   Future<void> scanBarcode() async {
-    try{
-    final barcode = await FlutterBarcodeScanner.scanBarcode(
-        "#ff6666", "Cancel", true, ScanMode.BARCODE);
+    try {
+      final barcode = await FlutterBarcodeScanner.scanBarcode(
+          "#ff6666", "Cancel", true, ScanMode.BARCODE);
 
-        if(!mounted) return;
+      if (!mounted) return;
 
-        setState(() {
-                  this.barcode = barcode;
-
-        });
-
-    } on PlatformException{
-    
-    barcode ='failed to get platform version';
+      setState(() {
+        this.barcode = barcode;
+      });
+    } on PlatformException {
+      barcode = 'failed to get platform version';
     }
-    
   }
 }

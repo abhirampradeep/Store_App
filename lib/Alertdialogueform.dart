@@ -2,10 +2,8 @@
 
 import 'package:flutter/material.dart';
 
-
-
 class Alertdialogueform extends StatefulWidget {
-  const Alertdialogueform({ Key? key }) : super(key: key);
+  const Alertdialogueform({Key? key}) : super(key: key);
 
   @override
   _AlertdialogueformState createState() => _AlertdialogueformState();
@@ -15,11 +13,12 @@ class _AlertdialogueformState extends State<Alertdialogueform> {
   @override
   Widget build(BuildContext context) {
     return Container(
-       decoration: BoxDecoration(
+      decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       child: AlertDialog(
         title: Text('Fill the form'),
+        scrollable: true,
         actions: [
           Container(
             padding: const EdgeInsets.all(10),
@@ -69,7 +68,7 @@ class _AlertdialogueformState extends State<Alertdialogueform> {
                   hintText: 'Enter the Semester and department '),
             ),
           ),
-             Container(
+          Container(
             padding: const EdgeInsets.all(10),
             child: TextField(
               decoration: InputDecoration(
@@ -106,7 +105,7 @@ class _AlertdialogueformState extends State<Alertdialogueform> {
                           TextButton(
                               onPressed: () {
                                 // Navigator.popUntil(context, (route) {
-                                  
+
                                 // });
                               },
                               child: Text("confirm")),
