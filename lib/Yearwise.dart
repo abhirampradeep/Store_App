@@ -1,33 +1,35 @@
-// ignore_for_file: unnecessary_const, avoid_unnecessary_containers, prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unnecessary_const
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:store_app_waya/Profile.dart';
 import 'package:store_app_waya/Studentlist.dart';
-import 'package:store_app_waya/Yearwise.dart';
 
-class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
+
+
+
+class Yearwise extends StatefulWidget {
+  const Yearwise({ Key? key }) : super(key: key);
 
   @override
-  _ProfileState createState() => _ProfileState();
+  _YearwiseState createState() => _YearwiseState();
 }
 
-class _ProfileState extends State<Profile> {
-  String barcode = 'Unknown';
+class _YearwiseState extends State<Yearwise> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor:Color(0xFF478DE0),
-          // title: const Text('Dashboard'),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.logout
-              ),
-              onPressed: () {},
-            )
-          ],
+           backgroundColor: Color(0xFF478DE0),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => Profile()));
+          },
+        ),
         ),
         body: GridView.count(
           
@@ -53,7 +55,7 @@ class _ProfileState extends State<Profile> {
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const Yearwise()));
+                                          const Department()));
                             },
                             icon: const Icon(
                               Icons.computer_rounded,
@@ -70,7 +72,7 @@ class _ProfileState extends State<Profile> {
                         child: const Align(
                           alignment: Alignment.center,
                           child: Text(
-                            "Computer Science ",
+                            "1st Year ",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.bold),
@@ -81,7 +83,7 @@ class _ProfileState extends State<Profile> {
                   )),
               onTap: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const Yearwise()));
+                    builder: (context) => const Department()));
               },
             ),
             InkWell(
@@ -99,7 +101,7 @@ class _ProfileState extends State<Profile> {
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const Yearwise()));
+                                          const Department()));
                             },
                             icon: const Icon(
                               Icons.add_rounded,
@@ -116,7 +118,7 @@ class _ProfileState extends State<Profile> {
                         child: const Align(
                           alignment: Alignment.center,
                           child: const Text(
-                            "Electonics ",
+                            "2nd Year ",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.bold),
@@ -127,7 +129,7 @@ class _ProfileState extends State<Profile> {
                   )),
               onTap: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const Yearwise()));
+                    builder: (context) => const Department()));
               },
             ),
             InkWell(
@@ -145,7 +147,7 @@ class _ProfileState extends State<Profile> {
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const Yearwise()));
+                                          const Department()));
                             },
                             icon: const Icon(
                               Icons.build_rounded,
@@ -162,7 +164,7 @@ class _ProfileState extends State<Profile> {
                         child: const Align(
                           alignment: Alignment.center,
                           child: Text(
-                            "Mechanical ",
+                            "3rd Year ",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.bold),
@@ -173,7 +175,7 @@ class _ProfileState extends State<Profile> {
                   )),
               onTap: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const Yearwise()));
+                    builder: (context) => const Department()));
               },
             ),
             InkWell(
@@ -191,7 +193,7 @@ class _ProfileState extends State<Profile> {
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const Yearwise()));
+                                          const Department()));
                             },
                             icon: const Icon(
                               Icons.settings,
@@ -208,7 +210,7 @@ class _ProfileState extends State<Profile> {
                         child: const Align(
                           alignment: Alignment.center,
                           child: Text(
-                            "Electrical  ",
+                            "4th Year ",
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.bold),
@@ -220,31 +222,12 @@ class _ProfileState extends State<Profile> {
                   ),
               onTap: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const Yearwise()));
+                    builder: (context) => const Department()));
               },
             ),
           ],
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: FloatingActionButton.extended(
-            onPressed: scanBarcode,
-            backgroundColor: Colors.pink[300],
-            label: const Text("Scan"),
-            icon: const Icon(Icons.qr_code_rounded)));
-  }
-
-  Future<void> scanBarcode() async {
-    try {
-      final barcode = await FlutterBarcodeScanner.scanBarcode(
-          "#ff6666", "Cancel", true, ScanMode.BARCODE);
-
-      if (!mounted) return;
-
-      setState(() {
-        this.barcode = barcode;
-      });
-    } on PlatformException {
-      barcode = 'failed to get platform version';
-    }
+        
+            );
   }
 }

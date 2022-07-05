@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:store_app_waya/Alertdialogueform.dart';
 import 'package:store_app_waya/Profile.dart';
 import 'package:store_app_waya/Profilecard.dart';
+import 'package:store_app_waya/Yearwise.dart';
 
 class Department extends StatefulWidget {
   const Department({Key? key}) : super(key: key);
@@ -45,7 +46,7 @@ class _DepartmentState extends State<Department> {
           ),
           onPressed: () {
             Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => Profile()));
+                MaterialPageRoute(builder: (context) => Yearwise()));
           },
         ),
       ),
