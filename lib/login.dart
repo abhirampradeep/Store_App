@@ -3,10 +3,14 @@
 import 'dart:async';
 // import 'dart:html';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:store_app_waya/Profile.dart';
+import 'package:store_app_waya/Studentdetails.dart';
+import 'package:store_app_waya/main.dart';
+import 'package:store_app_waya/services/auth.dart';
 
 class homepage extends StatefulWidget {
   const homepage({Key? key}) : super(key: key);
@@ -22,7 +26,7 @@ class _homepageState extends State<homepage> {
     Timer(
         Duration(seconds: 4),
         () => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => login())));
+            context, MaterialPageRoute(builder: (context) => getIt<Auth>().user!=null?Profile():login())));
   }
 
   final style =
@@ -39,7 +43,7 @@ class _homepageState extends State<homepage> {
           height: double.infinity,
           width: double.infinity,
           decoration: BoxDecoration(
-              gradient: LinearGradient(
+            gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
@@ -84,6 +88,21 @@ class login extends StatefulWidget {
 class _loginState extends State<login> {
   final style =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white);
+
+      final _emailcontroller = TextEditingController();
+      final _passwordcontroller = TextEditingController();
+
+  Future signIn() async{
+  
+    return getIt<Auth>().signIn(email: _emailcontroller.text.trim(), password: _passwordcontroller.text.trim());
+  }
+
+  void dispose()
+  {
+    _emailcontroller.dispose();
+    _passwordcontroller.dispose();
+    super.dispose();
+  }
 
   bool _isObscure = true;
 
@@ -169,7 +188,8 @@ class _loginState extends State<login> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                             height: 50,
-                            child: TextField(
+                            child: TextFormField(
+                              controller: _emailcontroller,
                               keyboardType: TextInputType.emailAddress,
                               style: TextStyle(color: Colors.white),
                               decoration: InputDecoration(
@@ -206,7 +226,8 @@ class _loginState extends State<login> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                             height: 50,
-                            child: TextField(
+                            child: TextFormField(
+                              controller: _passwordcontroller,
                               keyboardType: TextInputType.emailAddress,
                               obscureText: _isObscure,
                               style: TextStyle(color: Colors.white),
@@ -240,9 +261,12 @@ class _loginState extends State<login> {
                               child: ElevatedButton(
                                 
                                 onPressed: () {
-                                  Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                          builder: (context) => Profile()));
+                                  signIn().then((value){
+                                    if(value!=null) Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>Profile()));
+                                  });
+                                  // Navigator.of(context).pushReplacement(
+                                  //     MaterialPageRoute(
+                                  //         builder: (context) => Profile()));
                                 },
                                 style: ElevatedButton.styleFrom(
                                   primary: Colors.white,

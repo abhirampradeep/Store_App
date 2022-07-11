@@ -5,6 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:store_app_waya/Studentlist.dart';
 import 'package:store_app_waya/Yearwise.dart';
+import 'package:store_app_waya/login.dart';
+import 'package:store_app_waya/main.dart';
+import 'package:store_app_waya/services/auth.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -25,7 +28,12 @@ class _ProfileState extends State<Profile> {
             IconButton(
               icon: Icon(Icons.logout
               ),
-              onPressed: () {},
+              onPressed: () {
+                getIt<Auth>().signOut().then((value) =>  Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const login())));
+              },
             )
           ],
         ),

@@ -1,10 +1,22 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:store_app_waya/login.dart';
-// import 'package:store_app_waya/loginpage.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:store_app_waya/services/auth.dart';
+import 'firebase_options.dart';
 
-void main() {
+// import 'package:store_app_waya/loginpage.dart';
+GetIt get getIt => GetIt.instance;
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();  
+  await Firebase.initializeApp(
+  options: DefaultFirebaseOptions.currentPlatform,
+);
+  getIt.registerSingleton(Auth());
+  
   runApp(const MyApp());
 }
 
