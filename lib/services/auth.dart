@@ -24,7 +24,10 @@ class Auth{
   // }
   Future<User?> signIn({required String email,required String password}) async{
     return await auth.signInWithEmailAndPassword(email: email, password: password).then((value) => value.user);
+
+  
   }
+
 
   Future<void> signOut() async{
     auth.signOut();
